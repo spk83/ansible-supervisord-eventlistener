@@ -5,7 +5,7 @@
     supervisord_eventlistener_name: supervisord-eventlistener-test
     supervisord_eventlistener_command: echo "Hello World"
     supervisord_eventlistener_process_name: foo
-    supervisord_eventlistener_events: RUNNING,STOPPED
+    supervisord_eventlistener_events: PROCESS_STATE_EXITED,PROCESS_STATE_FATAL
   tasks:
     - name: check if eventlistener name is configured correctly in supervisord-eventlistener-test.conf
       block:
