@@ -5,7 +5,7 @@
     supervisord_eventlistener_command: echo test
     supervisord_eventlistener_events: RUNNING,STOPPED
     supervisord_stopasgroup: False
-    supervisord_eventlistener_user: nobody
+    supervisord_eventlistener_username: nobody
     supervisord_eventlistener_env:
       FOO: BAR
       BING: BAZ
@@ -49,7 +49,7 @@
     - name: check if user is configured correctly in supervisord-eventlistener-test.conf
       lineinfile:
         path: '{{supervisord_conf_dir}}/{{supervisord_eventlistener_name}}.conf'
-        line: user={{supervisord_eventlistener_user}}
+        line: user={{supervisord_eventlistener_username}}
         state: present
       check_mode: yes
       register: result
@@ -58,7 +58,7 @@
     - name: check if environment is configured correctly in supervisord-eventlistener-test.conf
       lineinfile:
         path: '{{supervisord_conf_dir}}/{{supervisord_eventlistener_name}}.conf'
-        line: environment=FOO="BAR",BING="BAZ"
+        line: environment=BING="BAZ",FOO="BAR"
         state: present
       check_mode: yes
       register: result
