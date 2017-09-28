@@ -1,0 +1,33 @@
+[eventlistener:{{supervisord_eventlistener_name}}]
+
+{% if supervisord_eventlistener_env != {} %}
+environment={% for k, v in supervisord_eventlistener_env.iteritems() %}{{k}}={{v | to_json}}{% if not loop.last %},{% endif %}{% endfor %}
+{% endif %}
+
+user={{supervisord_eventlistener_username | default('root')}}
+command={{supervisord_eventlistener_command}}
+events={{supervisord_eventlistener_events}}
+autorestart={{supervisord_eventlistener_autorestart|default('unexpected')|to_json|from_json}}
+stopasgroup={{supervisord_stopasgroup|default(false)|to_json|from_json}}
+
+redirect_stderr={{supervisord_eventlistener_redirect_stderr|default(false)|to_json|from_json}}
+
+{% if supervisord_eventlistener_stdout_logfile is defined %}
+stdout_logfile={{ supervisord_eventlistener_stdout_logfile }}
+{% endif %}
+
+{% if supervisord_eventlistener_stderr_logfile is defined %}
+stderr_logfile={{ supervisord_eventlistener_stderr_logfile }}
+{% endif %}
+
+{% if supervisord_eventlistener_stdout_logfile_maxbytes is defined %}
+stdout_logfile_maxbytes={{ supervisord_eventlistener_stdout_logfile_maxbytes }}
+{% endif %}
+
+{% if supervisord_eventlistener_stderr_logfile_maxbytes is defined %}
+stderr_logfile_maxbytes={{ supervisord_eventlistener_stderr_logfile_maxbytes }}
+{% endif %}
+
+{% for k,v in supervisord_eventlistener_addl_settings.iteritems() %}
+{{k}}={{v}}
+{% endfor %}

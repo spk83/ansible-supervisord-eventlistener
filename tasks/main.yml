@@ -1,0 +1,14 @@
+---
+
+- name: install eventlistener definition
+  become: yes
+  become_user: root
+  block:
+    - file:
+        path: '{{supervisord_conf_dir}}'
+        state: directory
+        mode: 0755
+    - template:
+        src: simple-eventlistener.conf.j2
+        dest: '{{supervisord_conf_dir}}/{{supervisord_eventlistener_name}}.conf'
+        mode: 0644
