@@ -7,6 +7,7 @@ environment={% for k, v in supervisord_eventlistener_env.iteritems() %}{{k}}={{v
 user={{supervisord_eventlistener_username | default('root')}}
 command={{supervisord_eventlistener_command}}
 events={{supervisord_eventlistener_events}}
+process_name={{supervisord_eventlistener_process_name}}
 autorestart={{supervisord_eventlistener_autorestart | default('unexpected') | lower}}
 stopasgroup={{supervisord_stopasgroup | default(false) | lower }}
 
