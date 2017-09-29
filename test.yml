@@ -162,6 +162,7 @@
     - name: check if redirect_stderr is configured correctly in supervisord-eventlistener-test.conf
       vars:
         supervisord_eventlistener_redirect_stderr: True
+        supervisord_eventlistener_stderr_logfile: /tmp/supervisord-eventlistener-test-stderr.log
       block:
         - include_role:
             name: '{{playbook_dir}}'
@@ -169,6 +170,13 @@
             path: '{{supervisord_conf_dir}}/{{supervisord_eventlistener_name}}.conf'
             line: redirect_stderr=true
             state: present
+          check_mode: yes
+          register: result
+          failed_when: (result | changed) or (result | failed)
+        - lineinfile:
+            path: '{{supervisord_conf_dir}}/{{supervisord_eventlistener_name}}.conf'
+            line: stderr_logfile={{supervisord_eventlistener_stderr_logfile}}
+            state: absent
           check_mode: yes
           register: result
           failed_when: (result | changed) or (result | failed)
