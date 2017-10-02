@@ -11,9 +11,6 @@ supervisord_conf_dir: /etc/supervisor/conf.d
 # REQUIRED - no defaults has been set for supervisord_eventlistener_events
 # supervisord_eventlistener_events: PROCESS_STATE_EXITED,PROCESS_STATE_FATAL
 
-# REQUIRED - no defaults has been set for supervisord_eventlistener_process_name
-# supervisord_eventlistener_process_name: foo_bar
-
 supervisord_eventlistener_env: {}
 # supervisord_eventlistener_env:
 #  KEY1: VALUE1

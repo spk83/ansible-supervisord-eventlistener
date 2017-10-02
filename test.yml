@@ -4,7 +4,6 @@
     supervisord_conf_dir: /etc/supervisor/conf.d
     supervisord_eventlistener_name: supervisord-eventlistener-test
     supervisord_eventlistener_command: echo "Hello World"
-    supervisord_eventlistener_process_name: foo
     supervisord_eventlistener_events: PROCESS_STATE_EXITED,PROCESS_STATE_FATAL
   tasks:
     - name: check if eventlistener name is configured correctly in supervisord-eventlistener-test.conf
@@ -38,18 +37,6 @@
         - lineinfile:
             path: '{{supervisord_conf_dir}}/{{supervisord_eventlistener_name}}.conf'
             line: events={{supervisord_eventlistener_events}}
-            state: present
-          check_mode: yes
-          register: result
-          failed_when: (result | changed) or (result | failed)
-
-    - name: check if process_name is configured correctly in supervisord-eventlistener-test.conf
-      block:
-        - include_role:
-            name: '{{playbook_dir}}'
-        - lineinfile:
-            path: '{{supervisord_conf_dir}}/{{supervisord_eventlistener_name}}.conf'
-            line: process_name={{supervisord_eventlistener_process_name}}
             state: present
           check_mode: yes
           register: result
